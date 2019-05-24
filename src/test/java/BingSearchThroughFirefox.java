@@ -26,12 +26,22 @@ public class BingSearchThroughFirefox {
     public void afterSuite(){
         driver.close();
     }
+    @Test
+    public void test001() {
+        String textValue = "portnov computer school";
+
+        openBingPage();
+        typeQuerySearchField(textValue);
+        clickSearchBoxSubmit();
+        verifyResultsOnPage();
+    }
 
     @Test
     public void test002() {
+        String textValue = "testNG";
 
         openBingPage();
-        typeQuerySearchField();
+        typeQuerySearchField(textValue);
         clickSearchBoxSubmit();
         verifyResultsOnPage();
     }
@@ -47,8 +57,8 @@ public class BingSearchThroughFirefox {
         driver.findElement(By.id("sb_form_go")).click();
     }
 
-    private void typeQuerySearchField() {
-        driver.findElement(By.xpath("//*[@id='sb_form_q']")).sendKeys("testNG");
+    private void typeQuerySearchField(String textQuery) {
+        driver.findElement(By.xpath("//*[@id='sb_form_q']")).sendKeys(textQuery);
     }
 
     private void openBingPage() {
