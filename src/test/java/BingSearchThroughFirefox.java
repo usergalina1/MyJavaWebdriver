@@ -3,28 +3,37 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterSuite;
+import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
 
 
-//    TODO: automate search scenario on Bing.com
 public class BingSearchThroughFirefox {
-
     WebDriver driver;
+
+    @BeforeSuite
+    public void beforeSuite(){
+        System.setProperty("webdriver.gecko.driver", "src/test/resources/drivers/geckodriver.exe");
+        driver = new FirefoxDriver();
+        driver.manage().window().maximize();
+    }
+    @AfterMethod
+    public void afterMethod(){
+        driver.manage().deleteAllCookies();
+    }
+    @AfterSuite
+    public void afterSuite(){
+        driver.close();
+    }
 
     @Test
     public void test002() {
-        System.setProperty("webdriver.gecko.driver", "src/test/resources/drivers/geckodriver.exe");
-        driver = new FirefoxDriver();
 
         openBingPage();
         typeQuerySearchField();
         clickSearchBoxSubmit();
         verifyResultsOnPage();
-        closeBingPage();
-    }
-
-    private void closeBingPage() {
-        driver.close();
     }
 
     private void verifyResultsOnPage() {
@@ -44,6 +53,5 @@ public class BingSearchThroughFirefox {
 
     private void openBingPage() {
         driver.get("https://www.bing.com/");
-        driver.manage().window().maximize();
     }
 }
