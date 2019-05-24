@@ -33,7 +33,7 @@ public class BingSearchThroughFirefox {
         openBingPage();
         typeQuerySearchField(textValue);
         clickSearchBoxSubmit();
-        verifyResultsOnPage();
+        verifyResultsOnPage(textValue);
     }
 
     @Test
@@ -43,12 +43,12 @@ public class BingSearchThroughFirefox {
         openBingPage();
         typeQuerySearchField(textValue);
         clickSearchBoxSubmit();
-        verifyResultsOnPage();
+        verifyResultsOnPage(textValue);
     }
 
-    private void verifyResultsOnPage() {
+    private void verifyResultsOnPage(String textValue) {
         WebElement resultOnPage = driver.findElement(By.id("b_content"));
-        Boolean resultText = resultOnPage.getText().contains("TestNG");
+        Boolean resultText = resultOnPage.getText().contains(textValue);
         Boolean expectedTest = true;
         Assert.assertEquals(resultText, expectedTest);
     }
