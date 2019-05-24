@@ -20,6 +20,11 @@ public class BingSearchThroughFirefox {
         typeQuerySearchField();
         clickSearchBoxSubmit();
         verifyResultsOnPage();
+        closeBingPage();
+    }
+
+    private void closeBingPage() {
+        driver.close();
     }
 
     private void verifyResultsOnPage() {
@@ -27,9 +32,6 @@ public class BingSearchThroughFirefox {
         Boolean resultText = resultOnPage.getText().contains("TestNG");
         Boolean expectedTest = true;
         Assert.assertEquals(resultText, expectedTest);
-
-        driver.close();
-
     }
 
     private void clickSearchBoxSubmit() {
