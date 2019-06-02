@@ -1,3 +1,4 @@
+import com.automation.data.DataProviderBrowserSearchData;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -14,6 +15,7 @@ public class DataProviderBrowserSearch {
     public void beforeSuite() {
         System.setProperty("webdriver.gecko.driver", "src/test/resources/drivers/geckodriver.exe");
         driver = new FirefoxDriver();
+        driver.manage().window().maximize();
     }
 
     @AfterMethod
@@ -26,17 +28,7 @@ public class DataProviderBrowserSearch {
         driver.close();
     }
 
-
-    @DataProvider(name = "credentials")
-    public Object[][] credentials() {
-        return new Object[][]{
-                {"testng"},
-                {"dataProviders"},
-                {"selenium"},
-        };
-    }
-
-    @Test(dataProvider = "credentials")
+    @Test(dataProvider = "credentials", dataProviderClass = DataProviderBrowserSearchData.class)
     public void test001(String textValue) {
 
         openMainPage();
@@ -74,3 +66,5 @@ public class DataProviderBrowserSearch {
         driver.get(url);
     }
 }
+
+
